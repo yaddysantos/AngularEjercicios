@@ -1,0 +1,7 @@
+<div class="container">
+  <h1>{{title}}</h1>
+  <!-- se usa evento -->
+  <app-formulario (resultadoSuma) = "resultadoOperacion($event)"></app-formulario>
+  <!-- se usa proporty binding -->
+  <app-resultado [resuladotHijo]="resultadoPadre"></app-resultado>
+</div>
