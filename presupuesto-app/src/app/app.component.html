@@ -1,9 +1,17 @@
-<app-header></app-header>
+<!-- enviar la informacion a nuestro hijo header 
+por medio de proporty binding-->
+<app-header 
+[presupuestoTotal] = "getPresupuestoTotal()"
+[ingresoTotal] = "getIngresoTotal()"
+[egresoTotal] = "getEgresoTotal()"
+[porcentajeTotal] = "getPorcentajeTotal()"
+></app-header>
 
 <app-formulario></app-formulario>
 
 <div class="contenedor limpiarEstilos">
   <app-ingreso></app-ingreso>
 
-  <app-egreso></app-egreso>
+  <app-egreso
+  [ingresoTotal]="getIngresoTotal()"></app-egreso>
 </div>

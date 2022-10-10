@@ -11,7 +11,7 @@ import { IngresoServicio } from './ingreso/ingreso.service';
 })
 export class AppComponent {
   ingreso: Ingreso[]=[];
-  egreso: Egreso[]=[];.
+  egreso: Egreso[]=[];
 
   //1.Inyectar dependencia de los servicios
   constructor(private ingresoServicio: IngresoServicio, private egresoServicio: EgresoServicio){
@@ -21,8 +21,26 @@ export class AppComponent {
 
   getIngresoTotal(){
     let ingresoTotal: number = 0;
-    this.ingreso.forEach( ingreso =>{
-      ingresoTotal =+ ingreso.valor;
-    })
+    this.ingreso.forEach( i =>{
+      ingresoTotal += i.valor;
+    });
+    return ingresoTotal;
   }
+
+  getEgresoTotal(){
+    let egresoTotal: number = 0;
+    this.egreso.forEach( e =>{
+      egresoTotal += e.valor;
+    });
+    return egresoTotal;
+  }
+
+  getPorcentajeTotal(){
+    return this.getEgresoTotal()/this.getIngresoTotal();
+  }
+
+  getPresupuestoTotal(){
+    return this.getIngresoTotal() - this.getEgresoTotal();
+  }
+
 }
