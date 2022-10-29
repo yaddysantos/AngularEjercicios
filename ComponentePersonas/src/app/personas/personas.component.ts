@@ -22,7 +22,7 @@ export class PersonasComponent implements OnInit {
     //this.personas = this.personasService.personas;
     this.personasService.obtenerPersonas()
     .subscribe(
-      (personas: Persona[]) =>{
+      (personas: Persona[] | any) => {
         this.personas = personas;
         this.personasService.setPersonas(personas);
       }
