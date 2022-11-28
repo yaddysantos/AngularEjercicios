@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
-import { AngularFireModule} from '@angular/fire/compat'
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
-import { AngularFireAuthModule } from '@angular/fire/compat/auth'
+import { NgModule } from '@angular/core';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +18,11 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { ConfiguracionComponent } from './componentes/configuracion/configuracion.component';
 import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado.component';
 import { PiePaginaComponent } from './componentes/pie-pagina/pie-pagina.component';
-import { FormsModule } from '@angular/forms';
 import { ClienteServicio } from './servicios/cliente.service';
+import { LoginService } from './servicios/login.service';
+import { AuthGuard } from './guardianes/auth.guard';
+import { ConfiguracionServicio } from './servicios/configuracion.service';
+import { ConfiguracionGuard } from './guardianes/configuracion.guard';
 
 @NgModule({
   declarations: [
@@ -37,10 +42,18 @@ import { ClienteServicio } from './servicios/cliente.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firestore, 'control-clientes'),
     AngularFirestoreModule,
-    AngularFireAuthModule, 
-    FormsModule
+    AngularFireAuthModule,
+    FormsModule,
+    FlashMessagesModule.forRoot()
   ],
-  providers: [ClienteServicio],
+  providers: [
+    ClienteServicio, 
+    LoginService, 
+    AuthGuard, 
+    ConfiguracionServicio, 
+    ConfiguracionGuard,
+    { provide: FirestoreSettingsToken, useValue:{}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
